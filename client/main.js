@@ -18,9 +18,10 @@ function getRndColor() {
   return color;
 }
 
-Template.x3dom.onCreated(function helloOnCreated() {
-  // counter starts at 0
-  this.counter = new ReactiveVar(0);
+Template.counter.helpers({
+  counter: function () {
+    return Boxes.find().count();
+  },
 });
 
 Template.x3dom.helpers({
@@ -32,8 +33,7 @@ Template.x3dom.helpers({
 Template.x3dom.events({
   "mouseup shape": function (e) {
     if (e.button === 1) {
-      // console.log("X: ", Math.floor(e.worldX + e.normalX / 2) + 0.5, " Y : ", Math.floor(e.worldY + e.normalY / 2) + 0.5, " Z : ", Math.floor(e.worldZ + e.normalZ / 2) + 0.5);
-      Boxes.insert({
+          Boxes.insert({
         color: getRndColor(),
         x: Math.floor(e.worldX + e.normalX / 2) + 0.5,
         y: Math.floor(e.worldY + e.normalY / 2) + 0.5,
